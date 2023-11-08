@@ -1,7 +1,9 @@
 import asyncio
 import http
 import websockets
+import logging
 
+logging.getLogger().setLevel(logging.INFO)
 PORT = 8080
 
 
@@ -12,7 +14,7 @@ async def health_check(path, request_headers):
 
 async def echo(websocket):
     async for message in websocket:
-        print(f"echo: {message}")
+        logging.info(f"echo: {message}")
         await websocket.send(message)
 
 
@@ -27,5 +29,5 @@ async def main():
 
 
 if __name__ == "__main__":
-    print(f"Starting websockets server on {PORT}")
+    logging.info(f"Starting websockets server on {PORT}")
     asyncio.run(main())
